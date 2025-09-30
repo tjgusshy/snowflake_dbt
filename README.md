@@ -47,14 +47,69 @@ This project implements a dbt pipeline for transforming and modeling the MovieLe
 	- Fact tables use `incremental` for efficient updates.
 	- Some models use `ephemeral` for CTE-based logic.
 
-### What Was Done
-- Extracted and staged raw MovieLens data from Snowflake.
-- Built dimension and fact tables with transformations and type casting.
-- Created marts for analytics-ready data.
-- Used seeds for static reference data.
-- Configured incremental and ephemeral models for performance.
-- Documented and tested models using dbt’s built-in features.
-- Set up source configuration for maintainable and portable SQL.
+
+### CI/CD Integration
+- Implemented CI/CD pipelines to automate dbt runs, tests, and documentation generation on every push.
+- Ensured that all code changes are linted, tested, and validated before merging to main.
+- Automated deployment steps for consistent and reliable analytics workflows.
+
+### SQLFluff Linting
+- Integrated [SQLFluff](https://sqlfluff.com/) for SQL linting and style enforcement across all dbt models.
+- Enforced consistent SQL formatting, indentation, and best practices.
+- Caught and fixed issues such as:
+	- Unqualified or inconsistent column references
+	- Unused joins
+	- Indentation and layout errors
+	- Jinja templating mistakes
+- Improved code readability and maintainability.
+
+
+### Recent Changes & How to Run
+
+#### Recent Changes
+- Added CI/CD pipeline for automated dbt runs, tests, and docs generation on every push.
+- Integrated SQLFluff for SQL linting and style enforcement.
+- Fixed issues flagged by SQLFluff (unqualified references, indentation, unused joins, Jinja errors).
+- Updated `packages.yml` to resolve dbt_utils version mismatch.
+- Improved documentation and error handling in incremental models.
+
+#### How to Run This Project
+1. **Clone the repository:**
+	```bash
+	git clone <your-repo-url>
+	cd snowflake_dbt
+	```
+2. **Install Python dependencies (recommended with [uv](https://github.com/astral-sh/uv)):**
+	```bash
+	uv pip install -r requirements.txt
+	```
+	Or, if you prefer pip:
+	```bash
+	pip install -r requirements.txt
+	```
+3. **Install dbt packages:**
+	```bash
+	dbt deps
+	```
+4. **Configure your Snowflake profile** in `~/.dbt/profiles.yml`.
+5. **Run dbt commands:**
+	```bash
+	dbt run
+	dbt test
+	dbt seed
+	dbt docs generate
+	dbt docs serve
+	```
+6. **Lint your SQL with SQLFluff:**
+	```bash
+	sqlfluff lint models --dialect snowflake
+	sqlfluff fix models --dialect snowflake  # (optional, to auto-fix)
+	```
+7. **CI/CD:**
+	- On every push, the pipeline will automatically run dbt and SQLFluff checks.
+	- Review the pipeline status in your repository's CI/CD dashboard.
+
+---
 
   <img width="1788" height="161" alt="Screenshot 2025-09-18 172136" src="https://github.com/user-attachments/assets/e101169a-a5f8-4ba6-9a03-57b9ea3d6777" />
 
