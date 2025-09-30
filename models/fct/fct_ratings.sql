@@ -8,7 +8,6 @@ WITH src_ratings AS (
     SELECT * FROM {{ ref('src_ratings') }}
 )
 
-
 SELECT
     src_ratings.user_id,
     src_ratings.movie_id,
@@ -19,6 +18,6 @@ WHERE
     {% if is_incremental() %}
         AND src_ratings.rating_timestamp > (
             SELECT COALESCE(MAX(src_ratings.rating_timestamp), '1970-01-01')
-            FROM {{ src_ratings }}
+            FROM {{ this }}
         )
     {% endif %}
