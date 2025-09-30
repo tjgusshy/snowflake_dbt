@@ -11,12 +11,11 @@ WITH src_ratings AS (
 SELECT
     user_id,
     movie_id,
-    rating,
-    rating_timestamp
+    rating
 FROM src_ratings
 WHERE
     rating IS NOT NULL
     {% if is_incremental() %}
-        AND rating_timestamp
+        AND src_ratings.rating_timestamp
         > (SELECT COALESCE(MAX(rating_timestamp), '1970-01-01') FROM {{ this }})
     {% endif %}
