@@ -1,0 +1,18 @@
+models:
+  - name: dim_genome_tags
+    description: "A dimension table that combines movie details with their associated tags."
+    columns:
+      - name: tag_id
+        description: "The unique identifier for each tag."
+        tests:
+          - unique
+      
+       
+  - name: dim_users
+    description: "A dimension table for users."
+    columns:
+      - name: user_id
+        description: "The unique identifier for each user."
+        tests:
+          - not_null
+         # - unique

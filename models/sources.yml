@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: snowflake_dbt
+    schema: RAW
+    tables:
+      - name: r_movies
+        identifier: raw_movies
+        
